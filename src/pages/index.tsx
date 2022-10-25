@@ -2,11 +2,9 @@ import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
 
 import { Header } from "../components/Header";
 import { PostCard } from "../components/PostCard";
-import { Search } from "../components/Search";
 
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
@@ -15,44 +13,30 @@ import { FaUserFriends } from "react-icons/fa";
 
 import { GIT_USER } from "../utils/user";
 
-const Home: NextPage = () => {
-  const [user, setUser] = useState({
-    avatar_url: "/src/assets/images/avatar.png",
-    name: "",
-    bio: "",
-    login: "",
-    company: "",
-    followers: 0,
-    inssues: [
-      {
-        id: 0,
-        title: "",
-        created_at: "",
-        body: "",
-      },
-    ],
-  });
+interface UserData {
+  avatar_url: string;
+  name: string;
+  bio: string;
+  login: string;
+  company: string;
+  followers: number;
+}
 
-  const { avatar_url, name, bio, login, company, followers } = user;
+interface UserInssues {
+  id: number;
+  title: string;
+  created_at: string;
+  body: string;
+  number: number;
+}
 
-  useEffect(() => {
-    getProfile();
-    getProfileInssues();
-  }, []);
+interface HomeProps {
+  userData: UserData;
+  userIssues: UserInssues[];
+}
 
-  async function getProfile() {
-    const res = await axios.get(`https://api.github.com/users/${GIT_USER}`);
-    const data = await res.data;
-    setUser(data);
-  }
-
-  async function getProfileInssues(search = "") {
-    const res = await axios.get(`https://api.github.com/search/issues?q=${search}%20repo:${GIT_USER}/githubblog`);
-    const data = await res.data;
-    setUser((prevUser) => {
-      return { ...prevUser, inssues: data.items };
-    });
-  }
+const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
+  const { avatar_url, bio, company, followers, login, name } = userData;
 
   return (
     <div className="min-h-screen bg-base-background">
@@ -98,11 +82,23 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
-          <Search />
+          <section className="container mt-[72px] flex flex-col">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base-subtitle text-lg">Publicações</h3>
+              <span className="text-base-span text-sm">{`${userIssues.length} publicações`}</span>
+            </div>
+            <div>
+              <input
+                className="w-full outline-none duration-200 rounded-md px-4 py-3 bg-base-input text-base-text border border-base-border placeholder-base-label focus:border-blue"
+                type="text"
+                placeholder="Buscar conteúdo"
+              />
+            </div>
+          </section>
           <section className="container mt-12">
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {user.inssues !== undefined &&
-                user.inssues.map(({ id, ...postData }) => <PostCard key={id} data={postData} />)}
+              {userIssues !== undefined &&
+                userIssues.map(({ id, ...postData }) => <PostCard key={id} data={postData} />)}
             </ul>
           </section>
         </main>
@@ -112,3 +108,24 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps(context: any) {
+  const resOne = await axios.get(`https://api.github.com/users/${GIT_USER}`);
+  const userData = await resOne.data;
+
+  const resTwo = await axios.get(`https://api.github.com/search/issues?q=%20repo:${GIT_USER}/githubblog`);
+  const { items: userIssues } = await resTwo.data;
+
+  if (!userData || !userIssues) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      userData,
+      userIssues,
+    },
+  };
+}
