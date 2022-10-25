@@ -49,7 +49,7 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
           <section className="container">
             <div className="py-8 px-10 rounded-[10px] bg-base-profile -mt-16 flex items-center gap-8 shadow-[0_2px_28px_rgba(0,0,0,0.3)]">
               <div className="min-h-[148px] min-w-[148px] profile-image rounded-lg overflow-hidden">
-                <Image src={avatar_url} alt="" width={148} height={148} layout="responsive" objectFit="cover" />
+                <Image src={avatar_url} alt="" width={148} height={148} layout="responsive" objectFit="cover" priority />
               </div>
               <div>
                 <header className="mb-2 flex items-center justify-between">
