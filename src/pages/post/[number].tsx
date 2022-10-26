@@ -13,8 +13,6 @@ import { FaComment } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 
-import { GIT_USER } from "../../utils/user";
-
 interface Inssue {
   issue: {
     id: string;
@@ -88,7 +86,7 @@ export default function Post({ issue }: Inssue) {
 export async function getServerSideProps(context: any) {
   const { number } = context.params;
 
-  const res = await axios.get(`https://api.github.com/repos/${GIT_USER}/githubblog/issues/${number}`);
+  const res = await axios.get(`https://api.github.com/repos/${process.env.GIT_USER}/githubblog/issues/${number}`);
   const issue = await res.data;
 
   if (!issue) {

@@ -11,8 +11,6 @@ import { FaGithub } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 
-import { GIT_USER } from "../utils/user";
-
 interface UserData {
   avatar_url: string;
   name: string;
@@ -20,6 +18,7 @@ interface UserData {
   login: string;
   company: string;
   followers: number;
+  html_url: string;
 }
 
 interface UserInssues {
@@ -37,7 +36,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
-  const { avatar_url, bio, company, followers, login, name } = userData;
+  const { avatar_url, bio, company, followers, login, name, html_url } = userData;
 
   return (
     <div className="min-h-screen bg-base-background">
@@ -64,7 +63,7 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
                 <header className="mb-2 flex items-center justify-between">
                   <h2 className="text-base-title text-2xl font-bold">{name}</h2>
                   <a
-                    href={`https://github.com/${GIT_USER}`}
+                    href={`https://github.com/${html_url}`}
                     target="_blank"
                     className="text-blue flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue"
                     rel="noreferrer"
@@ -121,10 +120,10 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
 export default Home;
 
 export async function getServerSideProps(context: any) {
-  const resOne = await axios.get(`https://api.github.com/users/${GIT_USER}`);
+  const resOne = await axios.get(`https://api.github.com/users/${process.env.GIT_USER}`);
   const userData = await resOne.data;
 
-  const resTwo = await axios.get(`https://api.github.com/search/issues?q=%20repo:${GIT_USER}/githubblog`);
+  const resTwo = await axios.get(`https://api.github.com/search/issues?q=%20repo:${process.env.GIT_USER}/githubblog`);
   const { items: userIssues } = await resTwo.data;
 
   if (!userData || !userIssues) {
