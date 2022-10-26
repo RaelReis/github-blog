@@ -43,30 +43,33 @@ export default function Post({ issue }: Inssue) {
         <div className="container">
           <div className="-mt-16 p-8 bg-base-profile rounded-[10px]">
             <div className="mb-5 flex items-center justify-between text-blue">
-              <Link href="/" target="_blank">
+              <Link href="/" passHref>
                 <a className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue">
                   <FaChevronLeft size={12} />
                   <span>voltar</span>
                 </a>
               </Link>
-              <Link href={issue.html_url}>
-                <a className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue">
-                  <span>ver no github</span>
-                  <BsBoxArrowUpRight size={12} strokeWidth={1.5} />
-                </a>
-              </Link>
+              <a
+                href={issue.html_url}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue"
+              >
+                <span>ver no github</span>
+                <BsBoxArrowUpRight size={12} strokeWidth={1.5} />
+              </a>
             </div>
             <h1 className="text-base-title text-2xl font-bold">{issue.title}</h1>
             <div className="flex items-center gap-8 mt-2">
-              <span className="text-base-span">
+              <span className="text-base-span flex items-center">
                 <FaGithub className="inline-block mr-2" />
                 <span>{issue.user.login}</span>
               </span>
-              <span className="text-base-span">
+              <span className="text-base-span flex items-center">
                 <FaCalendar className="inline-block mr-2" />
                 <span>{formatedDate}</span>
               </span>
-              <span className="text-base-span">
+              <span className="text-base-span flex items-center">
                 <FaComment className="inline-block mr-2" />
                 <span>{`${issue.comments} comentários`} </span>
               </span>
