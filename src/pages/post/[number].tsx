@@ -38,9 +38,9 @@ export default function Post({ issue }: Inssue) {
       <Head>
         <title>Github Blog - Post</title>
       </Head>
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col pb-52">
         <Header />
-        <div className="container pb-52">
+        <div className="container">
           <div className="-mt-16 p-8 bg-base-profile rounded-[10px]">
             <div className="mb-5 flex items-center justify-between text-blue">
               <Link href="/" passHref>
