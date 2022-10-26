@@ -8,6 +8,8 @@ import { BsBoxArrowUpRight } from "react-icons/bs";
 import Link from "next/link";
 import axios from "axios";
 import { GIT_USER } from "../../utils/user";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface Inssue {
   issue: {
@@ -24,6 +26,11 @@ interface Inssue {
 }
 
 export default function Post({ issue }: Inssue) {
+  const formatedDate = formatDistance(new Date(issue.created_at), new Date(), {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <div className="min-h-screen bg-base-background">
       <Head>
@@ -55,7 +62,7 @@ export default function Post({ issue }: Inssue) {
               </span>
               <span className="text-base-span">
                 <FaCalendar className="inline-block mr-2" />
-                <span>{issue.created_at}</span>
+                <span>{formatedDate}</span>
               </span>
               <span className="text-base-span">
                 <FaComment className="inline-block mr-2" />
@@ -83,7 +90,7 @@ export async function getServerSideProps(context: any) {
   if (!issue) {
     return {
       notFound: true,
-    }
+    };
   }
 
   return {

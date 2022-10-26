@@ -49,7 +49,15 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
           <section className="container">
             <div className="py-8 px-10 rounded-[10px] bg-base-profile -mt-16 flex items-center gap-8 shadow-[0_2px_28px_rgba(0,0,0,0.3)]">
               <div className="min-h-[148px] min-w-[148px] profile-image rounded-lg overflow-hidden">
-                <Image src={avatar_url} alt="" width={148} height={148} layout="responsive" objectFit="cover" priority />
+                <Image
+                  src={avatar_url}
+                  alt=""
+                  width={148}
+                  height={148}
+                  layout="responsive"
+                  objectFit="cover"
+                  priority
+                />
               </div>
               <div>
                 <header className="mb-2 flex items-center justify-between">
@@ -64,16 +72,18 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
                     <BsBoxArrowUpRight size={12} strokeWidth={1.5} />
                   </a>
                 </header>
-                <p className="text-base-text leading-6 mb-6">{bio ? bio : "This profile has no bio"}</p>
+                <p className="text-base-text leading-6 mb-6">{bio ? bio : "Esse perfil não tem bio"}</p>
                 <div className="flex items-center gap-6">
                   <span className="flex items-center gap-2">
                     <FaGithub size={18} color="#3A536B" />
                     <span className="text-base-subtitle">{login}</span>
                   </span>
-                  <span className="flex items-center gap-2">
-                    <FaBuilding size={18} color="#3A536B" />
-                    <span className="text-base-subtitle">{company ? company : "This profile has no company"}</span>
-                  </span>
+                  {company && (
+                    <span className="flex items-center gap-2">
+                      <FaBuilding size={18} color="#3A536B" />
+                      <span className="text-base-subtitle">{company}</span>
+                    </span>
+                  )}
                   <span className="flex items-center gap-2">
                     <FaUserFriends size={18} color="#3A536B" />
                     <span className="text-base-subtitle">{`${followers} seguidores`}</span>
