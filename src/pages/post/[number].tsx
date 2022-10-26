@@ -1,20 +1,24 @@
+import axios from "axios";
 import Head from "next/head";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 import { Header } from "../../components/Header";
+
 import { FaGithub } from "react-icons/fa";
 import { FaCalendar } from "react-icons/fa";
 import { FaComment } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { BsBoxArrowUpRight } from "react-icons/bs";
-import Link from "next/link";
-import axios from "axios";
+
 import { GIT_USER } from "../../utils/user";
-import { formatDistance } from "date-fns";
-import { ptBR } from "date-fns/locale";
 
 interface Inssue {
   issue: {
     id: string;
-    url: string;
+    html_url: string;
     title: string;
     body: string;
     user: {
@@ -41,13 +45,13 @@ export default function Post({ issue }: Inssue) {
         <div className="container">
           <div className="-mt-16 p-8 bg-base-profile rounded-[10px]">
             <div className="mb-5 flex items-center justify-between text-blue">
-              <Link href="/">
+              <Link href="/" target="_blank">
                 <a className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue">
                   <FaChevronLeft size={12} />
                   <span>voltar</span>
                 </a>
               </Link>
-              <Link href={issue.url}>
+              <Link href={issue.html_url}>
                 <a className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue">
                   <span>ver no github</span>
                   <BsBoxArrowUpRight size={12} strokeWidth={1.5} />
@@ -73,7 +77,7 @@ export default function Post({ issue }: Inssue) {
         </div>
         <div className="container mt-10 text-base-text">
           <div className="px-8">
-            <p>{issue.body}</p>
+            <ReactMarkdown>{issue.body}</ReactMarkdown>
           </div>
         </div>
       </div>

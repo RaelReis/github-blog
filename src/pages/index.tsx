@@ -28,6 +28,7 @@ interface UserInssues {
   created_at: string;
   body: string;
   number: number;
+  html_url: string;
 }
 
 interface HomeProps {
@@ -59,7 +60,7 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
                   priority
                 />
               </div>
-              <div>
+              <div className="w-full">
                 <header className="mb-2 flex items-center justify-between">
                   <h2 className="text-base-title text-2xl font-bold">{name}</h2>
                   <a
