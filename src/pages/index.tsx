@@ -63,7 +63,7 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
                 <header className="mb-2 flex items-center justify-between">
                   <h2 className="text-base-title text-2xl font-bold">{name}</h2>
                   <a
-                    href={`https://github.com/${html_url}`}
+                    href={html_url}
                     target="_blank"
                     className="text-blue flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue"
                     rel="noreferrer"
