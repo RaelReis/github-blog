@@ -42,7 +42,7 @@ export default function Post({ issue }: Inssue) {
         <Header />
         <div className="container">
           <div className="-mt-16 p-8 bg-base-profile rounded-[10px]">
-            <div className="mb-5 flex items-center justify-between text-blue">
+            <div className="mb-5 flex items-center justify-between text-blue flex-wrap">
               <Link href="/" passHref>
                 <a className="uppercase text-xs font-bold flex items-center gap-2 py-1 duration-300 border-b border-b-transparent hover:border-b-blue">
                   <FaChevronLeft size={12} />
@@ -60,16 +60,16 @@ export default function Post({ issue }: Inssue) {
               </a>
             </div>
             <h1 className="text-base-title text-2xl font-bold">{issue.title}</h1>
-            <div className="flex items-center gap-8 mt-2">
-              <span className="text-base-span flex items-center">
+            <div className="flex items-center gap-x-8 gap-y-2 mt-2 flex-wrap">
+              <span className="text-xs md:text-base text-base-span flex items-center">
                 <FaGithub className="inline-block mr-2" />
                 <span>{issue.user.login}</span>
               </span>
-              <span className="text-base-span flex items-center">
+              <span className="text-xs md:text-base text-base-span flex items-center">
                 <FaCalendar className="inline-block mr-2" />
                 <span>{formatedDate}</span>
               </span>
-              <span className="text-base-span flex items-center">
+              <span className="text-xs md:text-base text-base-span flex items-center">
                 <FaComment className="inline-block mr-2" />
                 <span>{`${issue.comments} comentários`} </span>
               </span>
@@ -78,7 +78,7 @@ export default function Post({ issue }: Inssue) {
         </div>
         <div className="container mt-10 text-base-text">
           <div className="px-8">
-            <ReactMarkdown>{issue.body}</ReactMarkdown>
+            <ReactMarkdown className="markdown">{issue.body}</ReactMarkdown>
           </div>
         </div>
       </div>

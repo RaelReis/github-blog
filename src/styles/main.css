@@ -9,21 +9,63 @@
     @apply min-w-full;
     font-family: "Nunito", sans-serif;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
 }
 
 @layer utilities {
-  .text-ellipses-3 {
+  .text-ellipsis-2 {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    @apply overflow-hidden;
-    @apply text-ellipsis;
+    @apply overflow-hidden text-ellipsis;
   }
-  .text-ellipses-5 {
+  .text-ellipsis-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    @apply overflow-hidden text-ellipsis;
+  }
+  .text-ellipsis-5 {
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
-    @apply overflow-hidden;
-    @apply text-ellipsis;
+    @apply overflow-hidden text-ellipsis;
+  }
+}
+
+@layer components {
+  .markdown {
+    white-space: pre-wrap;
+  }
+
+  .markdown a {
+    @apply text-blue underline;
+  }
+
+  .markdown ul {
+    @apply pl-8
+  }
+
+  .markdown li {
+    @apply list-disc;
   }
 }

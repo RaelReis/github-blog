@@ -22,13 +22,13 @@ export function PostCard({ data }: PostCardProps) {
   return (
     <li>
       <Link href={`/post/${number}`}>
-        <a className="max-h-[260px] bg-base-post p-8 flex flex-col gap-5 rounded-[10px] duration-300 border-2 border-base-post cursor-pointer hover:border-base-label">
-          <div className="flex items-start justify-between gap-8">
-            <h4 className="text-base-title text-xl font-bold">{title}</h4>
-            <span className="text-base-span text-sm">{formatedDate}</span>
+        <a className="overflow-hidden h-[260px] bg-base-post p-8 flex flex-col gap-5 rounded-[10px] duration-300 border-2 border-base-post cursor-pointer hover:border-base-label">
+          <div className="flex items-start justify-between gap-4">
+            <h4 className="text-base-title text-xl font-bold text-ellipsis-2">{title}</h4>
+            <span className="min-w-fit text-base-span text-sm">{formatedDate}</span>
           </div>
-          <div className="text-ellipses-3 lg:text-ellipses-5">
-            <p className="text-base-text">{body}</p>
+          <div className="text-ellipsis-5 lg:text-ellipsis-4">
+            <p className="text-base-text">{body.replace(/#|\*|`|=|"/g, "")}</p>
           </div>
         </a>
       </Link>

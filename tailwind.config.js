@@ -9,7 +9,11 @@ module.exports = {
         md: "768px",
         lg: "864px",
       },
-      padding: '1rem',
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+      },
     },
     extend: {
       colors: {

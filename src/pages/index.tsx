@@ -10,6 +10,7 @@ import { BsBoxArrowUpRight } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
+import { useState } from "react";
 
 interface UserData {
   avatar_url: string;
@@ -37,6 +38,23 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
   const { avatar_url, bio, company, followers, login, name, html_url } = userData;
+
+  const [filter, setFilter] = useState("");
+
+  const filteredIssues = userIssues.filter(
+    ({ title, body }) =>
+      title.toLowerCase().includes(filter.toLowerCase()) || body.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const renderFiltederIssues = () => {
+    return filteredIssues.length > 0 ? (
+      filteredIssues.map(({ id, ...postData }) => <PostCard key={id} data={postData} />)
+    ) : (
+      <div className="text-center text-base-title text-2xl">
+        <p>Nenhum Issue encontrado</p>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-base-background">
@@ -102,13 +120,14 @@ const Home: NextPage<HomeProps> = ({ userData, userIssues }) => {
                 className="w-full outline-none duration-200 rounded-md px-4 py-3 bg-base-input text-base-text border border-base-border placeholder-base-label focus:border-blue"
                 type="text"
                 placeholder="Buscar conteúdo"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
               />
             </div>
           </section>
           <section className="container mt-12">
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {userIssues !== undefined &&
-                userIssues.map(({ id, ...postData }) => <PostCard key={id} data={postData} />)}
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {userIssues !== undefined && renderFiltederIssues()}
             </ul>
           </section>
         </main>
